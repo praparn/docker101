@@ -1,4 +1,4 @@
-Instruction for Docker MeetUp 17/01/2019:
+Instruction 
 ====================================================
 Part 1: Set environment for Docker for MAC
 ====================================================
