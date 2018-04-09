@@ -1,0 +1,6 @@
+FROM bitnami/nginx:latest
+MAINTAINER Praparn Lueangphoonlap (eva10409@gmail.com) 
+LABEL Description="NGINX Reverse Proxy" Version="1.0"
+COPY /conf/. /bitnami/nginx/conf
+COPY /404/. /app
+EXPOSE 8080 8443

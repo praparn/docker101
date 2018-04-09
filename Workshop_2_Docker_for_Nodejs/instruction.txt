@@ -1,0 +1,61 @@
+Part 1: Run Node.js on Docker Platform
+--------------------------------------
+
+1. Pull image from hub.docker.com for nodejs by command: docker pull labdocker/nodejsbitnami:latest
+
+2. Run container for nodejs by command:
+    docker run -dt --name nodejs -p 3000:3000 labdocker/nodejsbitnami:latest
+
+3. Open browser for check output: http://192.168.99.100:3000 
+
+4. Stop container by command: 
+    docker stop nodejs
+    docker rm nodejs
+
+
+=======================================================================================================
+Part 2: Extend nginx for establish TLS to Node.js
+1. Pull image from hub.docker.com for nodejs by command: docker pull labdocker/nginxbitnami:latest
+
+
+2. Create network for private zone by command:
+
+    docker network create --driver bridge \
+	--subnet=192.168.100.0/24 --ip-range=192.168.100.128/25 \
+	--gateway=192.168.100.5 --opt="com.docker.network.mtu"="1500" nodejs_net
+
+3. Run container for nodejs by command: (Restrict Access)
+    docker run -dt --name nodejs --net nodejs_net \
+	--net-alias nodejs labdocker/nodejsbitnami:latest
+
+4. Run container for nginx by command: (Reverse Proxy)
+    docker run -dt --name nginx -p 80:8080 -p 443:8443 --net nodejs_net \
+    --net-alias nginx labdocker/nginxbitnami:latest
+
+5. Add hosts to MAC/Windows by command:
+    For Windows (c:\windows\system32\driver\etc\hosts:
+		127.0.0.1 www.nodejsthailand.com
+
+	For Mac:
+	echo "127.0.0.1 www.nodejsthailand.com" | sudo tee -a /private/etc/hosts
+
+6. Open browser for check output:
+
+    -https://www.nodejsthailand.com
+
+    -http://www.nodejsthailand.com
+
+    -http://localhost
+
+    -https://localhost
+
+
+7. Cleanup lab by command:
+    
+    docker stop nodejs nginx
+    docker rm nodejs nginx
+    docker network rm nodejs_net
+
+
+
+

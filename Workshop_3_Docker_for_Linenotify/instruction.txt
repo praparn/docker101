@@ -1,0 +1,7 @@
+1. BOT LINE Notify:	
+
+	1.1 run docker on interactive mode with command:
+		docker container run -it --rm --name linebot -e TITLE="Line BOT (Bank of Thailand)" -e "TOKEN=<LINE TOKEN>" labdocker/linenotify:bot_v1
+
+		Ex:
+		docker container run --rm --name linebot -e "TITLE=Line BOT (Bank of Thailand)" -e "TOKEN=EIeqyillzkzpaCo1ROrebZTcGbIyzDZHpOjcdd0t6CX" labdocker/linenotify:bot_v1

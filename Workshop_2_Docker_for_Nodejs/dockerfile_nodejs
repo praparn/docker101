@@ -1,0 +1,11 @@
+FROM bitnami/node:latest 
+MAINTAINER Praparn Lueangphoonlap (eva10409@gmail.com) 
+LABEL Description="NodeJS Workshop" Version="1.0"
+ENV NODE_VERSION=v6.12.2 NPM_VERSION=3.10.10
+RUN mkdir /nodejs
+COPY ./app/. /app/
+WORKDIR /app
+RUN npm i && \
+    npm run build
+ENTRYPOINT ["node","server.js"]
+EXPOSE 3000
